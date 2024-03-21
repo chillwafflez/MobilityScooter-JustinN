@@ -11,7 +11,7 @@ df = pd.read_csv('data\\090620231100\p7_front_1.csv')
 # print(df.head())
 
 # Split data into samples of 120 frames
-organized_data = [df.iloc[i : i + 120].values for i in range(0, len(df) - 4, 120)]     # convert data into list of dataframes, each dataframe has 120 records
+organized_data = [df.iloc[i : i + 120].values for i in range(0, len(df) - (len(df) % 120), 120)]     # convert data into list of numpy arrays, each array has 120 records (4 seconds)
 organized_data = np.array(organized_data)      # convert list into numpy array
 
 print(f"Number of samples: {len(organized_data)}")

@@ -3,7 +3,7 @@ from torch import nn
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from dataset_class import CoordinateDatasetV1
+from load_data import CoordinateDatasetV1
 from torch.utils.data import Dataset, DataLoader
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
