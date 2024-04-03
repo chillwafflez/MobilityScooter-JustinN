@@ -1,4 +1,4 @@
-def train_LSTM_autoencoder(model, epochs, dataloader, device, loss_fn, optimizer):
+def train_LSTM_autoencoder(model, epochs, dataloader, loss_fn, optimizer, device):
   for epoch in range(epochs):
         total_loss = 0   # loss per epoch
 

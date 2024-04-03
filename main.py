@@ -24,7 +24,7 @@ def main():
                                  lr = 0.001)
 
     print("--- Training ---")
-    train_LSTM_autoencoder(LSTM_autoencoder, EPOCHS, train_dataloader, device, loss_fn, optimizer)
+    train_LSTM_autoencoder(LSTM_autoencoder, EPOCHS, train_dataloader, loss_fn, optimizer, device)
 
 
     # Get embedding of input data using only encoder from LSTM autoencoder

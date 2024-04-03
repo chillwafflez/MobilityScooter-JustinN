@@ -6,8 +6,8 @@ class LSTM_Autoencoder(nn.Module):
     super(LSTM_Autoencoder, self).__init__()
 
     self.encoder = nn.LSTM(input_size = input_size,
-                                        hidden_size = hidden_dim,
-                                        batch_first = True)
+                           hidden_size = hidden_dim,
+                           batch_first = True)
     self.compress = nn.Linear(hidden_dim, embedding_dim)            # Linear layer to compress the output of the encoder layer
 
     self.decoder = nn.LSTM(input_size = embedding_dim,
