@@ -33,14 +33,25 @@ SEQUENCE_LENGTH = 120
 LSTM_autoencoder = LSTM_Autoencoder(seq_length=SEQUENCE_LENGTH,
                                     input_size=INPUT_SIZE,
                                     embedding_dim=EMBEDDING_DIM).to(device)
-
+# Uncomment below to load saved model parameters into model instance
+# LSTM_autoencoder.load_state_dict(torch.load("./saved_models/LSTM_autoencoder.pth"))
 
 loss_fn = nn.MSELoss()
 optimizer = torch.optim.Adam(params = LSTM_autoencoder.parameters(),
                                 lr = 0.001)
+# optimizer.load_state_dict(torch.load("./saved_models/opimizer_state"))
 
 print("--- Training ---")
-train_loss, test_loss, penis, cock = train_model(LSTM_autoencoder, EPOCHS, train_dataloader, test_dataloader, loss_fn, optimizer, device)
+train_loss, test_loss = train_model(LSTM_autoencoder, EPOCHS, train_dataloader, test_dataloader, loss_fn, optimizer, device)
 print(f"train loss: {train_loss}")
 print(f"test loss: {test_loss}")
 plot_loss(train_loss, test_loss)
+
+# Save the model's parameters (training or inference) and optimizer's state (training)
+model_save_path = "./saved_models/LSTM_autoencoder.pth"
+torch.save(obj = LSTM_autoencoder.state_dict(),
+           f = model_save_path)
+
+optimizer_save_path = "./saved_models/opimizer_state"
+torch.save(obj = optimizer.state_dict(), 
+           f = optimizer_save_path)
