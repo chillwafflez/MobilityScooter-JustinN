@@ -1,1 +1,1 @@
-My own personal repo for Dr. Tingting Chen's mobility scooter project
+Personal repo for Dr. Tingting Chen's mobility scooter project
