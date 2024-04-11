@@ -18,23 +18,24 @@ class LSTM_Autoencoder(nn.Module):
                                    hidden_size = 2 * embedding_dim,
                                    batch_first = True)
     self.decoder_layer_2 = nn.LSTM(input_size = 2 * embedding_dim,
-                                   hidden_size = input_size,
+                                   hidden_size = 2 * embedding_dim,
                                    batch_first = True)
+    self.output_layer = nn.Linear(2 * embedding_dim, input_size)
 
   def forward(self, x):
-    # print(f"input = {x.shape}")
 
     # -------- Encoder -------- #
     x, (_, _) = self.encoder_layer_1(x)
-    _, (embedding, _) = self.encoder_layer_2(x)
+    x, (embedding, _) = self.encoder_layer_2(x)
 
-    # print(f"embedding shape (hidden state of LSTM): {embedding.shape}")
+    # print(f"Output of encoder layers: output shape: {x.shape} | embedding shape (hidden state of LSTM): {embedding.shape}")
     x = embedding.repeat(1, self.seq_length, 1)
+    # print(f"Input into decoder (embedding but transformed): {x.shape}")
 
     # -------- Decoder -------- #
     x, (_, _) = self.decoder_layer_1(x)
     x, (_, _) = self.decoder_layer_2(x)
-    # print(f"after decoder: x = {x.shape}")
+    x = self.output_layer(x)
     return x
   
   

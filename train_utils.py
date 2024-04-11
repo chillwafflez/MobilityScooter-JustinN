@@ -1,6 +1,7 @@
 import torch
 import matplotlib.pyplot as plt
 
+# function to train a given model
 def train_model(model, epochs, train_dataloader, test_dataloader, loss_fn, optimizer, device):
   total_train_loss = []
   total_test_loss = []
