@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 # function to train a given model
 def train_model(model, epochs, train_dataloader, test_dataloader, loss_fn, optimizer, device):
   total_train_loss = []
-  total_test_loss = []
+  total_val_loss = []
   
   for epoch in range(epochs):
     # Training
@@ -33,7 +33,7 @@ def train_model(model, epochs, train_dataloader, test_dataloader, loss_fn, optim
     total_train_loss.append(train_loss)
         
     # Testing
-    test_loss = 0     # test loss per epoch
+    val_loss = 0     # test loss per epoch
     model.eval()
     with torch.inference_mode():   
         for batch, X in enumerate(test_dataloader):
@@ -44,19 +44,19 @@ def train_model(model, epochs, train_dataloader, test_dataloader, loss_fn, optim
 
             # Calculate loss
             loss = loss_fn(output, X)
-            test_loss += loss.item()
+            val_loss += loss.item()
 
-        test_loss /= len(test_dataloader)
-        total_test_loss.append(test_loss)
-    print(f"Epoch: {epoch} | Train loss = {train_loss} | Test loss = {test_loss}")
+        val_loss /= len(test_dataloader)
+        total_val_loss.append(val_loss)
+    print(f"Epoch: {epoch} | Train loss = {train_loss} | Test loss = {val_loss}")
 
-  return total_train_loss, total_test_loss
+  return total_train_loss, total_val_loss
 
 # Plot train and loss curves
-def plot_loss(train_loss, test_loss):
+def plot_loss_during_training(train_loss, validation_loss):
    plt.figure(figsize=(10,5))
    plt.plot(train_loss, label="train loss")
-   plt.plot(test_loss, label="test loss")
+   plt.plot(validation_loss, label="validation loss")
    plt.xlabel("Epochs")
    plt.ylabel("Loss")
    plt.legend()
