@@ -80,18 +80,16 @@ class LSTM_AutoencoderV2(nn.Module):
         return x
 
 
-# def main():
-#   test_tensor = torch.rand((120, 18))
-#   model = Encoder(seq_len=120, n_features=18, embedding_dim=64)
-#   embedding = model(test_tensor)
+# test_tensor = torch.rand((120, 18))
+# model = Encoder(seq_len=120, n_features=18, embedding_dim=64)
+# embedding = model(test_tensor)
 
-#   test_tensor = torch.rand((1, 64))
-#   model = Decoder(seq_len=120, input_dim=64, n_features=18)
-#   output = model(test_tensor)
+# test_tensor = torch.rand((1, 64))
+# model = Decoder(seq_len=120, input_dim=64, n_features=18)
+# output = model(test_tensor)
 
-#   test_tensor = torch.rand((1, 120, 18))
-#   model = LSTM_AutoencoderV2(seq_len=120, n_features=18, embedding_dim=64)
-#   output = model(test_tensor)
-#   print(f"output of decoder shape: {output.shape}")
+# test_tensor = torch.rand((1, 120, 18))
+# model = LSTM_AutoencoderV2(seq_len=120, n_features=18, embedding_dim=64)
+# output = model(test_tensor)
+# print(f"output of decoder shape: {output.shape}")
 
-# main()

@@ -6,7 +6,7 @@ import torch
 from torch import nn
 from torch.utils.data import DataLoader
 from models.LSTM_AutoencoderV2 import LSTM_AutoencoderV2
-from PoseDataset import PoseDataDatasetV2
+from PoseDataset import *
 import pandas as pd
 from sklearn.model_selection import train_test_split
 import numpy as np
@@ -62,7 +62,7 @@ def train_model(model, train_dataloader, val_dataloader, epochs):
 RANDOM_SEED = 42
 
 df = pd.read_csv('data/raw_stable_pose_data/051920231000/P5_Front_Track_1.csv')
-dataset = PoseDataDatasetV2(df)
+dataset = PoseDataDatasetV1(df)
 train_dataset, validation_dataset = train_test_split(dataset, test_size=0.2, random_state=RANDOM_SEED)
 
 BATCH_SIZE = 1
@@ -89,7 +89,7 @@ LSTM_autoencoder, loss_history = train_model(LSTM_autoencoder, train_dataloader,
 plot_loss_during_training(loss_history['train'], loss_history['val'])
 
 
-# Save the model's parameters (training or inference) and optimizer's state (training)
+# Save the model's parameters (training or inference)
 model_save_path = "./saved_models/LSTM_autoencoderV2.pth"
 torch.save(obj = LSTM_autoencoder.state_dict(),
            f = model_save_path)

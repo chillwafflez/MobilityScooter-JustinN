@@ -39,9 +39,6 @@ class LSTM_Autoencoder(nn.Module):
     return x
   
   
-# def main():
-#   test_tensor = torch.rand((1, 120, 18))
-#   model = LSTM_Autoencoder(seq_length= 120, input_size=18, embedding_dim=64)
-#   output = model(test_tensor)
-
-# main()
+# test_tensor = torch.rand((1, 120, 18))
+# model = LSTM_Autoencoder(seq_length= 120, input_size=18, embedding_dim=64)
+# output = model(test_tensor)
