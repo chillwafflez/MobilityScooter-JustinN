@@ -48,7 +48,7 @@ def train_model(model, epochs, train_dataloader, test_dataloader, loss_fn, optim
 
         val_loss /= len(test_dataloader)
         total_val_loss.append(val_loss)
-    print(f"Epoch: {epoch} | Train loss = {train_loss} | Test loss = {val_loss}")
+    print(f"Epoch: {epoch} | Train loss = {train_loss} | Validation loss = {val_loss}")
 
   return total_train_loss, total_val_loss
 

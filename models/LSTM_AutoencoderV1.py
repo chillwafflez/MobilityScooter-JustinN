@@ -8,19 +8,19 @@ class LSTM_Autoencoder(nn.Module):
     self.seq_length = seq_length
 
     self.encoder_layer_1 = nn.LSTM(input_size = input_size,
-                                   hidden_size = 2 * embedding_dim,
+                                   hidden_size = embedding_dim,
                                    batch_first = True)
-    self.encoder_layer_2 = nn.LSTM(input_size = 2 * embedding_dim,
+    self.encoder_layer_2 = nn.LSTM(input_size = embedding_dim,
                                    hidden_size = embedding_dim,
                                    batch_first = True)
 
     self.decoder_layer_1 = nn.LSTM(input_size = embedding_dim,
-                                   hidden_size = 2 * embedding_dim,
+                                   hidden_size = embedding_dim,
                                    batch_first = True)
-    self.decoder_layer_2 = nn.LSTM(input_size = 2 * embedding_dim,
-                                   hidden_size = 2 * embedding_dim,
+    self.decoder_layer_2 = nn.LSTM(input_size = embedding_dim,
+                                   hidden_size = embedding_dim,
                                    batch_first = True)
-    self.output_layer = nn.Linear(2 * embedding_dim, input_size)
+    self.output_layer = nn.Linear(embedding_dim, input_size)
 
   def forward(self, x):
 
