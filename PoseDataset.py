@@ -34,7 +34,7 @@ class PoseDataDatasetV2(Dataset):
 
 # df = pd.read_csv('data\\raw_stable_pose_data\\040520231330\FrontView_1.csv')
 # df2 = pd.read_csv('data\\raw_stable_pose_data\\040520231330\FrontView_1.csv')
-# dataset_v2 = PoseDataDatasetV2(df2)
+# dataset_v2 = PoseDataDatasetV2(df)
 # print(f"length of datasetV2: {len(dataset_v2)}")
 # dataset_v3 = PoseDataDatasetV3(df)
 # print(f"length of datasetV3: {len(dataset_v3)}")

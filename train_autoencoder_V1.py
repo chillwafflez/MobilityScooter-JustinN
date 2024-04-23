@@ -12,9 +12,8 @@ import os
 # ------ Setup Datasets and DataLoaders ------ #
 RANDOM_SEED = 42
 
-path = 'data/raw_stable_pose_data/051920231000/P5_Front_Track_3.csv'
+path = 'data\processed_stable_pose_data\\051920230915\P1_Front_Track_2.csv'
 df = pd.read_csv(path)             # Load CSV files into PyTorch dataset
-# df = pd.read_csv('data\\raw_stable_pose_data\\051920230915\P1_Front_Track_4.csv')
 dataset = PoseDataDatasetV2(df, sequence_length=120)
 train_dataset, validation_dataset = train_test_split(dataset, test_size=0.2, random_state=RANDOM_SEED)
 
@@ -37,7 +36,7 @@ LSTM_autoencoder = LSTM_Autoencoder(seq_length=SEQUENCE_LENGTH,
                                     input_size=NUM_FEATURES,
                                     embedding_dim=EMBEDDING_DIM).to(device)
 # Uncomment below to load saved model parameters into model instance
-# LSTM_autoencoder.load_state_dict(torch.load("./saved_models/LSTM_autoencoderV1.pth"))
+LSTM_autoencoder.load_state_dict(torch.load("./saved_models/LSTM_autoencoderV1.pth"))
 
 loss_fn = nn.MSELoss()
 optimizer = torch.optim.Adam(params = LSTM_autoencoder.parameters(),
@@ -64,4 +63,4 @@ if not os.path.exists(save_directory):
     os.makedirs(save_directory)
 with open(save_directory + "\\" + filename, 'a') as loss_file:
     for i in range(len(train_loss)):
-        loss_file.write(f"Epoch: {i + 1} | Train loss: {train_loss[i]} | Validation loss: {validation_loss[i]}")
+        loss_file.write(f"Epoch: {i + 1} | Train loss: {train_loss[i]} | Validation loss: {validation_loss[i]}\n")

@@ -53,14 +53,15 @@ def train_model(model, epochs, train_dataloader, test_dataloader, loss_fn, optim
   return total_train_loss, total_val_loss
 
 # Plot train and loss curves
-def plot_loss_during_training(train_loss, validation_loss):
-   plt.figure(figsize=(10,5))
-   plt.plot(train_loss, label="train loss")
-   plt.plot(validation_loss, label="validation loss")
-   plt.xlabel("Epochs")
-   plt.ylabel("Loss")
-   plt.legend()
-   plt.show()
+def plot_loss_during_training(train_loss, validation_loss=None):
+  plt.figure(figsize=(10,5))
+  plt.plot(train_loss, label="train loss")
+  if validation_loss:
+    plt.plot(validation_loss, label="validation loss")
+  plt.xlabel("Epochs")
+  plt.ylabel("Loss")
+  plt.legend()
+  plt.show()
 
 
 # train = [0.0735313066553014, 0.004585355984939573, 0.00410072243733642, 0.003837817346599574, 0.0036556153689161876, 0.0035248944589208503, 0.003426456929688963, 0.003349259872629773, 0.0032869922356136764, 0.0032357451845503723]
