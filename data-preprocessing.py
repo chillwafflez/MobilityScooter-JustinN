@@ -45,7 +45,8 @@ def confirm_number_of_nonstable(label_path):
             count += 1
     print(f"num of minimum sway: {count}")
 
-label_path = "data\\raw_stable_pose_data\\050120231100\Labels\P4_Front_Track_2.mp4_labels.csv"      # path to labels csv file
-pose_path = "data\\raw_stable_pose_data\\050120231100\P4_Front_Track_2.csv"                         # path to pose data csv file
-keep_stable(label_path, pose_path)
-# confirm_number_of_nonstable(label_path)
+# label_path = "data\\raw_stable_pose_data\\050120231100\Labels\P4_Front_Track_2.mp4_labels.csv"      # path to labels csv file
+# pose_path = "data\\raw_stable_pose_data\\050120231100\P4_Front_Track_2.csv"                         # path to pose data csv file
+# keep_stable(label_path, pose_path)
+# # confirm_number_of_nonstable(label_path)
+

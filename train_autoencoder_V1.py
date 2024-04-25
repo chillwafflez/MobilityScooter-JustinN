@@ -12,7 +12,7 @@ import os
 # ------ Setup Datasets and DataLoaders ------ #
 RANDOM_SEED = 42
 
-path = 'data\processed_stable_pose_data\\051920230915\P1_Front_Track_2.csv'
+path = 'data\yolov7\\raw_stable_pose_data\\051920230915\P1_Front_Track_4.csv'
 df = pd.read_csv(path)             # Load CSV files into PyTorch dataset
 dataset = PoseDataDatasetV2(df, sequence_length=120)
 train_dataset, validation_dataset = train_test_split(dataset, test_size=0.2, random_state=RANDOM_SEED)

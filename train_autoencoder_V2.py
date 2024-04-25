@@ -11,6 +11,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 import numpy as np
 from train_utils import plot_loss_during_training
+import os
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -60,9 +61,11 @@ def train_model(model, train_dataloader, val_dataloader, epochs):
 
 # ------ Setup Datasets and DataLoaders ------ #
 RANDOM_SEED = 42
+torch.manual_seed(RANDOM_SEED)
 
-df = pd.read_csv('data/raw_stable_pose_data/051920231000/P5_Front_Track_1.csv')
-dataset = PoseDataDatasetV1(df)
+path = 'data\processed_stable_pose_data\\050120231100\P4_Front_Track_2.csv'
+df = pd.read_csv(path)
+dataset = PoseDataDatasetV2(df, sequence_length=120)
 train_dataset, validation_dataset = train_test_split(dataset, test_size=0.2, random_state=RANDOM_SEED)
 
 BATCH_SIZE = 1
@@ -75,7 +78,7 @@ validation_dataloader = DataLoader(dataset=validation_dataset,
 
 # ----------- Training ----------- #
 device = "cuda" if torch.cuda.is_available() else "cpu"
-EPOCHS = 20
+EPOCHS = 10
 INPUT_SIZE = 18
 EMBEDDING_DIM = 64
 SEQUENCE_LENGTH = 120
@@ -83,13 +86,27 @@ SEQUENCE_LENGTH = 120
 LSTM_autoencoder = LSTM_AutoencoderV2(seq_len=SEQUENCE_LENGTH,
                                       n_features=INPUT_SIZE,
                                       embedding_dim=EMBEDDING_DIM).to(device)
-# LSTM_autoencoder.load_state_dict(torch.load("./saved_models/LSTM_autoencoderV2.pth"))
+LSTM_autoencoder.load_state_dict(torch.load("./saved_models/LSTM_autoencoderV2.pth"))
 
 LSTM_autoencoder, loss_history = train_model(LSTM_autoencoder, train_dataloader, validation_dataloader, EPOCHS)
-plot_loss_during_training(loss_history['train'], loss_history['val'])
-
+train_loss = loss_history['train']
+validation_loss = loss_history['val']
+plot_loss_during_training(train_loss, validation_loss)
 
 # Save the model's parameters (training or inference)
 model_save_path = "./saved_models/LSTM_autoencoderV2.pth"
 torch.save(obj = LSTM_autoencoder.state_dict(),
            f = model_save_path)
+
+# Save loss values to text file
+full_path = os.path.split(path)
+date = os.path.split(full_path[0])[1]
+filename = full_path[1].rstrip('.csv') + '.txt'
+print(filename)
+save_directory = "loss\\" + "autoencoderV2_overlap\\" + date
+if not os.path.exists(save_directory):
+    print("creating directory for loss values")
+    os.makedirs(save_directory)
+with open(save_directory + "\\" + filename, 'a') as loss_file:
+    for i in range(len(train_loss)):
+        loss_file.write(f"Epoch: {i + 1} | Train loss: {train_loss[i]} | Validation loss: {validation_loss[i]}\n")
