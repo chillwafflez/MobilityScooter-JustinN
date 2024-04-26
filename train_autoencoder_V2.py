@@ -86,7 +86,7 @@ SEQUENCE_LENGTH = 120
 LSTM_autoencoder = LSTM_AutoencoderV2(seq_len=SEQUENCE_LENGTH,
                                       n_features=INPUT_SIZE,
                                       embedding_dim=EMBEDDING_DIM).to(device)
-LSTM_autoencoder.load_state_dict(torch.load("./saved_models/LSTM_autoencoderV2.pth"))
+LSTM_autoencoder.load_state_dict(torch.load("./saved_models/autoencoderV2_overlap.pth"))
 
 LSTM_autoencoder, loss_history = train_model(LSTM_autoencoder, train_dataloader, validation_dataloader, EPOCHS)
 train_loss = loss_history['train']
@@ -94,7 +94,7 @@ validation_loss = loss_history['val']
 plot_loss_during_training(train_loss, validation_loss)
 
 # Save the model's parameters (training or inference)
-model_save_path = "./saved_models/LSTM_autoencoderV2.pth"
+model_save_path = "./saved_models/autoencoderV2_overlap.pth"
 torch.save(obj = LSTM_autoencoder.state_dict(),
            f = model_save_path)
 
