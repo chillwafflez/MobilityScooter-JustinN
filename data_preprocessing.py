@@ -57,15 +57,39 @@ def concat_data(data_folder):
             full_df = pd.concat([full_df, df])
     return full_df
 
+def main():
+    # for motion sensor data: about one record every 1-2 seconds
+    # for pose data: 30 frames/record every second
+    motion_path = "data\yolov7\\raw_stable_pose_data\\051920230915\May_19_run_1.csv"      # path to labels csv file
+    motion_df = pd.read_csv(motion_path, index_col=0)
+    print(f"length of motion data for 051920230915/Patient 1: {len(motion_df)}")
+
+    data_folder = "data\yolov7\\raw_stable_pose_data\\051920230915"
+    full_df = pd.DataFrame()
+    for pose_file in os.scandir(data_folder):
+        if (pose_file.name == "Labels") or (pose_file.name == 'May_19_run_1.csv'):
+            continue
+        # print(pose_file.name)
+        df = pd.read_csv(pose_file.path, escapechar='\\')
+        full_df = pd.concat([full_df, df])
+    print(f"length of pose data for 051920230915/Patient 1: {len(full_df)} | {len(full_df) // 30} ")
+
+    print(motion_df.head(3))
+
+
+
+
 # Test keep_stable
-# label_path = "data\yolov7\\raw_stable_pose_data\\042820231100\Labels\P3_Front_Track_4.mp4_labels.csv"      # path to labels csv file
-# pose_path = "data\yolov7\\raw_stable_pose_data\\042820231100\P3_Front_Track_4.csv"                         # path to pose data csv file
-# keep_stable(label_path, pose_path)
-# num_of_stable(label_path)
+    # label_path = "data\yolov7\\raw_stable_pose_data\\042820231100\Labels\P3_Front_Track_4.mp4_labels.csv"      # path to labels csv file
+    # pose_path = "data\yolov7\\raw_stable_pose_data\\042820231100\P3_Front_Track_4.csv"                         # path to pose data csv file
+    # keep_stable(label_path, pose_path)
+    # num_of_stable(label_path)
 
 # Test concatData
-# data_folder = "data\yolov7\\raw_stable_pose_data"
-# data_folder = "data\yolov7\processed_stable_pose_data"
-# full_df = concat_data(data_folder)
-# print(full_df.tail(3))
-# print(len(full_df) // 120)
+    # data_folder = "data\yolov7\\raw_stable_pose_data"
+    # data_folder = "data\yolov7\processed_stable_pose_data"
+    # full_df = concat_data(data_folder)
+    # print(full_df.tail(3))
+    # print(len(full_df) // 120)
+
+main()
